@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: code-editor-app
+    runtime: node
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: node server/index.js
+    envVars:
+      - key: VUE_APP_API_URL
+        value: ""
+      - key: OPENAI_API_KEY
+        sync: false

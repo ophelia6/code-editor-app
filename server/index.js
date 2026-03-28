@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
 const app = express();
 const cors = require('cors');
 const request = require('request');
@@ -136,6 +137,12 @@ ${text.substring(0, 8000)}`;
         console.error('Upload/parse error:', err.message);
         res.status(500).json({ error: 'Failed to extract questions from document.' });
     }
+});
+
+// Serve the Vue build in production
+app.use(express.static(path.join(__dirname, '../dist')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../dist', 'index.html'));
 });
 
 app.listen(port, () => {
